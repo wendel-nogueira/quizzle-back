@@ -9,14 +9,6 @@ import 'dotenv/config';
 const app = express();
 const port = process.env.PORT || 80;
 
-declare global {
-    namespace Express {
-        interface Request{
-            userToken?: any;
-        }
-    }
-}
-
 app.use(express.json({ limit: '50mb' }));
 app.use(express.json());
 app.use(cors());
@@ -44,6 +36,12 @@ app.use((err: Error, request: Request, response: Response, next: NextFunction) =
     }
 });
 
+router.stack.forEach((r) => {
+    if (r.route && r.route.path) {
+        console.log(r.route.stack[0].method.toUpperCase() + " " + r.route.path);
+    }
+});
+
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+    console.log(`\nServer is running on port ${port}`);
 });
