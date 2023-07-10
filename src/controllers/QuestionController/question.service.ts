@@ -19,6 +19,14 @@ export class QuestionService {
         return await this.questionsRepository.findOne(id);
     }
 
+    async countQuestionsByTheme() {
+        return await this.questionsRepository.countQuestionsByTheme();
+    }
+
+    async countQuestions() {
+        return await this.questionsRepository.countQuestions();
+    }
+
     async create(createQuestionDto: CreateQuestionDto) {
         const validator = new Validator();
 
@@ -28,10 +36,22 @@ export class QuestionService {
     }
 
     async update(id: string, updateQuestionDto: UpdateQuestionDto) {
+        const questionExists = await this.questionsRepository.findOne(id);
+
+        if (!questionExists) {
+            throw new Error('Questão não encontrada');
+        }
+
         return await this.questionsRepository.update(id, updateQuestionDto);
     }
 
     async remove(id: string) {
+        const questionExists = await this.questionsRepository.findOne(id);
+
+        if (!questionExists) {
+            throw new Error('Questão não encontrada');
+        }
+
         return await this.questionsRepository.remove(id);
     }
 }

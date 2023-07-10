@@ -3,7 +3,7 @@ export class Question {
     pergunta: string;
     alternativas: string[];
     resposta: string;
-    tema: string;
+    tema: any;
 
     constructor(partial: Partial<Question>) {
         Object.assign(this, partial);

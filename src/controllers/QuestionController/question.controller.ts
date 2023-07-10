@@ -20,6 +20,20 @@ export class QuestionsController {
         return res.status(200).json(question);
     }
 
+    async countQuestionsByTheme(req: Request, res: Response, next: NextFunction) {
+        const questionsService = new QuestionService();
+        const questions = await questionsService.countQuestionsByTheme();
+
+        return res.status(200).json(questions);
+    }
+
+    async countQuestions(req: Request, res: Response, next: NextFunction) {
+        const questionsService = new QuestionService();
+        const questions = await questionsService.countQuestions();
+
+        return res.status(200).json(questions);
+    }
+
     async create(req: Request, res: Response, next: NextFunction) {
         const questionsService = new QuestionService();
         const body = req.body as CreateQuestionDto;
