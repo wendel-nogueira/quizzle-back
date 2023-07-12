@@ -1,15 +1,36 @@
 {
+    "name": "quizzle-back",
     "version": 2,
+    "public": true,
     "builds": [
-        {
-            "src": "src/server.ts",
-            "use": "@vercel/node"
-        }
+      {
+        "src": "src/server.ts",
+        "use": "@vercel/node"
+      }
     ],
     "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "/dist/server.js"
-        }
+      {
+        "src": "/(.*)",
+        "dest": "/src/server.ts"
+      }
+    ],
+    "headers": [
+      {
+        "source": "/(.*)",
+        "headers": [
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "*"
+          },
+          {
+            "key": "Access-Control-Allow-Methods",
+            "value": "GET,OPTIONS,PATCH,DELETE,POST,PUT"
+          },
+          {
+            "key": "Access-Control-Allow-Headers",
+            "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+          }
+        ]
+      }
     ]
-}
+  }
